@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"crypto/tls"
 	"fmt"
+	"io"
 	"log/slog"
 	"net"
 	"os"
@@ -125,7 +126,14 @@ func (s *SMTPServer) handleConnectionWithoutClose(conn net.Conn, session *SMTPSe
 		line, err := reader.ReadString('\n')
 
 		if err != nil {
-			slog.Error("Error reading from client", "error", err, "client", clientAddr)
+			// Handle different types of connection errors more gracefully
+			if err == io.EOF {
+				slog.Debug("Client disconnected", "client", clientAddr)
+			} else if netErr, ok := err.(*net.OpError); ok && netErr.Err == syscall.ECONNRESET {
+				slog.Debug("Connection reset by client (likely health check)", "client", clientAddr)
+			} else {
+				slog.Error("Error reading from client", "error", err, "client", clientAddr)
+			}
 			break
 		}
 

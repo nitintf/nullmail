@@ -1,7 +1,7 @@
-import { createClient } from 'redis';
+import { createClient, RedisClientType } from 'redis';
 import { Email } from './types';
 
-let client: any = null;
+let client: RedisClientType | null = null;
 
 export async function getRedisClient() {
   if (!client) {
@@ -10,7 +10,7 @@ export async function getRedisClient() {
       password: process.env.REDIS_PASSWORD || 'dev123',
     });
 
-    client.on('error', (err: any) => console.error('Redis Client Error', err));
+    client.on('error', (err: Error) => console.error('Redis Client Error', err));
     
     if (!client.isOpen) {
       await client.connect();
@@ -48,7 +48,7 @@ export async function getEmailsForAddress(emailAddress: string): Promise<Email[]
     }
 
     const emails: Email[] = [];
-    results.forEach((result: any, index: number) => {
+    results.forEach((result: unknown, index: number) => {
       if (result) {
         try {
           console.log(result)

@@ -122,7 +122,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  "Perfect for testing my applications. No spam, no hassle, just clean temporary emails."
+                  &quot;Perfect for testing my applications. No spam, no hassle, just clean temporary emails.&quot;
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
@@ -144,7 +144,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  "The interface is so clean and intuitive. I use it daily for my development workflow."
+                  &quot;The interface is so clean and intuitive. I use it daily for my development workflow.&quot;
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
@@ -166,7 +166,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  "Finally, a disposable email service that actually works reliably. Highly recommended!"
+                  &quot;Finally, a disposable email service that actually works reliably. Highly recommended!&quot;
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">

@@ -36,21 +36,22 @@ func NewClient(config Config) *Client {
 }
 
 func NewClientFromEnv() *Client {
-	addr := os.Getenv("REDIS_ADDR")
-	if addr == "" {
-		addr = "localhost:6379"
+	redisURL := os.Getenv("REDIS_URL")
+
+	// Use Redis URL if available (preferred for Render)
+	opt, err := redis.ParseURL(redisURL)
+	if err != nil {
+		slog.Error("Failed to parse Redis URL", "error", err, "url", redisURL)
+		return nil
 	}
 
-	password := os.Getenv("REDIS_PASSWORD")
-	if password == "" {
-		password = "dev123"
-	}
+	rdb := redis.NewClient(opt)
+	slog.Info("Using Redis URL", "addr", opt.Addr, "tls", opt.TLSConfig != nil)
 
-	return NewClient(Config{
-		Addr:     addr,
-		Password: password,
-		DB:       0,
-	})
+	return &Client{
+		client: rdb,
+		ctx:    context.Background(),
+	}
 }
 
 func (c *Client) Ping() error {

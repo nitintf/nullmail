@@ -385,7 +385,7 @@ func (s *SMTPServer) handleVrfy(cmd string, writer *bufio.Writer) {
 	// For disposable email service, we can't really verify users
 	// but we accept all addresses ending with our domain
 	email := parts[1]
-	if strings.Contains(email, "@nullmail.local") {
+	if strings.Contains(email, "@nullmail.local") || strings.Contains(email, "@nullmail.nitin.sh") {
 		s.sendResponse(writer, CodeOK, fmt.Sprintf("250 %s", email))
 	} else {
 		s.sendResponse(writer, CodeCannotVerify, MsgCannotVerify)

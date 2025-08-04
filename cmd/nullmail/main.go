@@ -23,7 +23,7 @@ func main() {
 		startHealthServer()
 	}()
 
-	port := ":2525"
+	port := ":25"
 	if len(os.Args) > 1 {
 		port = os.Args[1]
 	}
